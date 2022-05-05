@@ -8,7 +8,8 @@ import { Icon } from 'semantic-ui-react';
 import Header from '../Layout/Header';
 import List from './List';
 import Lichtruc from './Lichtruc';
-
+import Upload from './Upload';
+import "./Lichtruc.css"
 
 
 
@@ -135,24 +136,14 @@ function IP() {
     <Fragment>
 
       <div className="App" style={{ display: hienthi }}>
-        <h2>Xin chào!</h2>
-        <h2>Chấm công NMĐG Tân Ân 1!</h2>
-        
-        <h4>Lịch trực nhà máy điện gió Tân Ân 1: 
-         
 
-        <button className='btn btn-link' onClick={hienthilichtrucf}> Ẩn/Hiển thị</button>
-        </h4>
-        
         <div id='Hienthilichtruc' style={{ display: hienthilichtruc }}> 
-      
-      
         <Lichtruc />
         </div>
         
 
-        <div id="hienthichamcong" style={{ display: hienthichamcong }}> </div>
-        <h4>Danh sách được chấm công: </h4>
+        <div id="hienthichamcong"  style={{ display: hienthichamcong }}> </div>
+        <h4 className='lichtruc'>Danh sách được chấm công: </h4>
         <List />
 
         <div class="container md-5">

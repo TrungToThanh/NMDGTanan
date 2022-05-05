@@ -1,0 +1,7 @@
+.lichtruc{
+    color: black;
+}
+.lichtruc:hover{
+    color: red;
+    transform: scaleX(3px);
+}

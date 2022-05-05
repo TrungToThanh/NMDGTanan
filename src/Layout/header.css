@@ -1,0 +1,34 @@
+.custom-btn{
+ 
+    color: azure;
+    width: 110px !important;
+
+}
+.custom-btn:hover {
+    color: white;
+    background: gray;
+   
+}
+.search{
+    color: white;
+}
+.bell{
+    color: white;
+}
+.bell:hover{
+    transform:scale(1.05);
+}
+.users:hover{
+    transform:scale(1.05);
+}
+.search:hover {
+    display: none;
+    transform:scale(1.05);
+}
+
+.hienthilichsu{
+    width: 220px;
+    color: black;
+    padding-top: 35px;
+    padding-right: 60px;
+}

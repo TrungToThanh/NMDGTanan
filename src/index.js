@@ -7,7 +7,7 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import Home from './Component/Home';
 import rootReducer from './reducers'
-import Change from './Change';
+
 
 const store = createStore(
   rootReducer,
@@ -17,7 +17,6 @@ const store = createStore(
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      {/* <Change /> */}
       <Home/>
     </Provider>,
 

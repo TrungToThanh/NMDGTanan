@@ -156,20 +156,25 @@ const Header = () => {
                 style={{ display: ht }}
               >
                 <div className="z-index:100 ">
-                  <a href="/Chamcong" className="btn  custom-btn text-white">
+                <Link to={location => ({ ...location, pathname: "/History" })} className="btn  custom-btn text-white">
+                    {" "}
+                    Lịch sử
+                </Link>
+                  <div class="dropdown-divider"></div>
+                  <Link to={location => ({ ...location, pathname: "/Chamcong" })}  className="btn  custom-btn text-white">
                     {" "}
                     Chấm công
-                  </a>
+                  </Link>
                   <div class="dropdown-divider"></div>
-                  <a href="/Lichtruc" className="btn  custom-btn text-white">
+                  <Link to={location => ({ ...location, pathname: "/Lichtruc" })}  className="btn  custom-btn text-white">
                     {" "}
                     Lịch trực
-                  </a>
+                  </Link>
                   <div class="dropdown-divider"></div>
-                  <a href="/Nhansu" className="btn  custom-btn text-white">
+                  <Link to={location => ({ ...location, pathname: "/Nhansu" })}   className="btn  custom-btn text-white">
                     {" "}
                     Nhân sự
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

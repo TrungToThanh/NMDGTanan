@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useRef, useLayoutEffect } from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { initializeApp } from "firebase/app";
 import {
@@ -9,7 +9,6 @@ import {
   deleteObject,
   getDownloadURL,
 } from "firebase/storage";
-import { async } from "@firebase/util";
 
 function Upload() {
   // Your web app's Firebase configuration
@@ -26,7 +25,6 @@ function Upload() {
   const [image, setImage] = useState("");
   const storageRef = ref(storage, `${image.name}`);
   const listRef = ref(storage, "");
-  const didMount = useRef(false);
   var danhsach1 = [];
 
   useEffect(() => {
@@ -89,12 +87,17 @@ function Upload() {
   };
 
   const uploadimage = () => {
-    listdata(); //liet ke danh sach anh va xoa anh cu di
-    uploadBytes(storageRef, image).then((snapshot) => {
-      console.log("Uploaded a blob or file!");
-      getImage();
-    });
-    alert("Đăng lịch trực thành công!");
+    if (image === "") {
+      alert("Bạn chưa thêm Lịch Trực!");
+    } else {
+      listdata(); //liet ke danh sach anh va xoa anh cu di
+      uploadBytes(storageRef, image).then((snapshot) => {
+        console.log("Uploaded a blob or file!");
+        getImage();
+      });
+      alert("Đăng lịch trực thành công!");
+      setImage("");
+    }
   };
 
   return (
@@ -108,32 +111,36 @@ function Upload() {
           height="450"
         />
         {/* <button onClick={getImage}> click </button> */}
-        <div className="d-inline-flex gap-4 text-left mt-2 ">
-          <div className="card  p-5">
+        <div className="d-inline-flex gap-2 mt-2 ">
+          <div className="card p-5">
             <h5>Hướng dẫn tải lịch trực mới lên hệ thống:</h5>
-            <ul className="text-start">
+            <div className="text-start">
               <p>
                 1. Click vào nút "Choose File" để hiển thị hộp thoại chọn ảnh
               </p>
               <p> 2. Chọn file ảnh lịch trực phù hợp</p>
               <p> 3. Click vào nút "Đăng lịch trực" để chọn kết quả</p>
               <p> 4. Hộp thoại thông báo xuất hiện để thông báo kết quả!</p>
-            </ul>
+            </div>
           </div>
 
-          <div className="card p-5 text-center mt-2 gap-2">
+          <div className="card p-5 text-center gap-2">
             <h5> Đường dẫn file lịch trực: </h5>
             <div>
-              <input
-                type="file"
-                onChange={(e) => {
-                  setImage(e.target.files[0]);
-                }}
-              />
+              <p>
+                <input
+                  type="file"
+                  onChange={(e) => {
+                    setImage(e.target.files[0]);
+                  }}
+                />
+              </p>
+              <p>
+                <button className="btn btn-primary mt-2" onClick={uploadimage}>
+                  Đăng lịch trực
+                </button>
+              </p>
             </div>
-            <button className="btn btn-primary mt-2" onClick={uploadimage}>
-              Đăng lịch trực
-            </button>
           </div>
         </div>
       </center>

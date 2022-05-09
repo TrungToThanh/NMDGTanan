@@ -1,7 +1,6 @@
-import React, { Component, useEffect } from "react";
+import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import Lichtruc from "../Component/Lichtruc";
 import "./header.css";
 var iconbrand = require("../Pic/wind-turbine.png");
 var iconuser = require("../Pic/Users.png");
@@ -12,7 +11,7 @@ const Header = () => {
   const [ht2, setht2] = useState("none");
 
   function funcht() {
-    if (ht == "none") {
+    if (ht === "none") {
       setht("block");
     } else {
       setht("none");
@@ -20,7 +19,7 @@ const Header = () => {
   }
 
   function funcht1() {
-    if (ht1 == "none") {
+    if (ht1 === "none") {
       setht1("block");
     } else {
       setht1("none");
@@ -28,7 +27,7 @@ const Header = () => {
   }
 
   function funclichsu() {
-    if (ht2 == "none") {
+    if (ht2 === "none") {
       setht2("block");
     } else {
       setht2("none");
@@ -104,12 +103,16 @@ const Header = () => {
                 onMouseMove={funclichsu}
               >
                 <div className="position-fixed">
-                  <div className="search btn d-flex ">
-                    <p style={{ display: ht2 }} className="hienthilichsu">
-                      Lịch sử trực ca
-                    </p>
-                    <i className="fa fa-search" aria-hidden="true"></i>
-                  </div>
+                  <Link
+                    to={(location) => ({ ...location, pathname: "/Timkiem" })}
+                  >
+                    <div className="search btn d-flex ">
+                      <p style={{ display: ht2 }} className="hienthilichsu">
+                        Lịch sử trực ca
+                      </p>
+                      <i className="fa fa-search" aria-hidden="true"></i>
+                    </div>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -156,22 +159,34 @@ const Header = () => {
                 style={{ display: ht }}
               >
                 <div className="z-index:100 ">
-                <Link to={location => ({ ...location, pathname: "/History" })} className="btn  custom-btn text-white">
+                  <Link
+                    to={(location) => ({ ...location, pathname: "/History" })}
+                    className="btn  custom-btn text-white"
+                  >
                     {" "}
                     Lịch sử
-                </Link>
+                  </Link>
                   <div class="dropdown-divider"></div>
-                  <Link to={location => ({ ...location, pathname: "/Chamcong" })}  className="btn  custom-btn text-white">
+                  <Link
+                    to={(location) => ({ ...location, pathname: "/Chamcong" })}
+                    className="btn  custom-btn text-white"
+                  >
                     {" "}
                     Chấm công
                   </Link>
                   <div class="dropdown-divider"></div>
-                  <Link to={location => ({ ...location, pathname: "/Lichtruc" })}  className="btn  custom-btn text-white">
+                  <Link
+                    to={(location) => ({ ...location, pathname: "/Lichtruc" })}
+                    className="btn  custom-btn text-white"
+                  >
                     {" "}
                     Lịch trực
                   </Link>
                   <div class="dropdown-divider"></div>
-                  <Link to={location => ({ ...location, pathname: "/Nhansu" })}   className="btn  custom-btn text-white">
+                  <Link
+                    to={(location) => ({ ...location, pathname: "/Nhansu" })}
+                    className="btn  custom-btn text-white"
+                  >
                     {" "}
                     Nhân sự
                   </Link>

@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { Helmet } from "react-helmet";
-import ReactDOM from "react-dom";
 
 export default class List extends Component {
   constructor(props) {
@@ -14,19 +12,18 @@ export default class List extends Component {
   }
   componentDidMount() {
     //Get API
-    fetch("https://sheetdb.io/api/v1/2v4egm3vyukz6") //https://sheetdb.io/api/v1/2v4egm3vyukz6
+    fetch("") //https://sheetdb.io/api/v1/2v4egm3vyukz6
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
         console.log(data.length);
         const tt = data.length - 1;
-        const ngayhomnay = data[tt].Ngay;
         const giohomnay = data[tt].Gio;
         console.log(data[tt].Gio);
         console.log(data[tt].Ngay);
         this.setState({ Ngay: data[tt].Ngay, Gio: data[tt].Gio });
 
-        if (data[tt].Hotentrucchinh != "Không có người trực") {
+        if (data[tt].Hotentrucchinh !== "Không có người trực") {
           console.log(data[tt].Hotentrucchinh);
           this.setState({ Hotentrucchinh: data[tt].Hotentrucchinh });
         }
@@ -34,14 +31,11 @@ export default class List extends Component {
         var hotentruc = this.state.Hotentrucchinh;
 
         for (var i = 1; i < 15; i++) {
-          const ngaysosanh = data[tt - i].Ngay;
           const giososanh = data[tt - i].Gio;
-          if (giohomnay == giososanh) {
+          if (giohomnay === giososanh) {
             console.log(data[tt - i].Hotentrucchinh);
-            if (data[tt - i].Hotentrucchinh != "Không có người trực") {
+            if (data[tt - i].Hotentrucchinh !== "Không có người trực") {
               hotentruc = hotentruc + " - " + data[tt - i].Hotentrucchinh;
-            } else {
-              hotentruc = hotentruc;
             }
           }
         }

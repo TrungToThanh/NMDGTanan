@@ -1,15 +1,13 @@
-import React, { Component, useEffect, useRef } from "react";
+import React from "react";
 import { useState } from "react";
 import { initializeApp } from "firebase/app";
 import {
   getStorage,
   ref,
-  uploadBytes,
   listAll,
-  deleteObject,
   getDownloadURL,
 } from "firebase/storage";
-import "./Lichtruc.css"
+import "./Lichtruc.css";
 
 function Lichtruc() {
   // Your web app's Firebase configuration
@@ -28,7 +26,6 @@ function Lichtruc() {
   const listRef = ref(storage, "");
 
   var danhsach1 = [];
-
 
   function getImage() {
     // Find all the prefixes and items.
@@ -51,7 +48,7 @@ function Lichtruc() {
     if (danhsach1.length > 0) {
       getDownloadURL(ref(storage, danhsach1[0])).then((url) => {
         const img = document.getElementById("myimg");
-        if (image == "none") {
+        if (image === "none") {
           setImage("block");
           img.setAttribute("src", url);
         } else {
@@ -65,10 +62,12 @@ function Lichtruc() {
   return (
     <div>
       <center>
-        <div className="lichtruc d-flex justify-content-center">
-          <h4 role="button" onMouseOver={getImage} onClick={getImage}>
-            Lịch trực nhà máy điện gió Tân Ân 1 
-          </h4>
+        <div className="lichtruc d-flex justify-content-center mt-2">
+          <h5>Lịch trực nhà máy điện gió Tân Ân 1</h5>
+          <button onClick={getImage} className="btn btn-light btn-sm">
+            <i class="fa fa-arrow-down" aria-hidden="true"></i>{" "}
+            <i class="fa fa-arrow-up" aria-hidden="true"></i>{" "}
+          </button>
         </div>
         <div style={{ display: image }}>
           <img

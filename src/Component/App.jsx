@@ -187,7 +187,7 @@ export default class App extends Component {
         // The response comes here
         console.log(data);
         // window.location.href = "/";
-        window.location.assign("https://www.w3schools.com");
+        // window.location.assign("https://www.w3schools.com");
         window.location = "/";
         // window.open("/");
       })

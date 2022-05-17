@@ -7,6 +7,7 @@ import History from './History';
 import Persons from './Persons'
 import IP from "./IP"
 import OverviewDemo from './Table';
+import Timekeeping from './Timekeeping';
 
 export default class Home extends Component {
     render() {
@@ -19,7 +20,7 @@ export default class Home extends Component {
                             <Switch>
                                 <Route exact path="/" component={History} />
                                 <Route exact path="/History" component={History} />
-                                <Route exact path="/Chamcong" component ={IP}/>
+                                <Route exact path="/Chamcong" component ={Timekeeping}/>
                                 <Route exact path="/Lichtruc" component={Upload} />
                                 <Route exact path="/Nhansu" component={Persons} />
                                 <Route exact path="/Timkiem" component={OverviewDemo} />

@@ -1,14 +1,32 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import "./header.css";
 var iconbrand = require("../Pic/wind-turbine.png");
 var iconuser = require("../Pic/Users.png");
+
+
+
 
 const Header = () => {
   const [ht, setht] = useState("none");
   const [ht1, setht1] = useState("none");
   const [ht2, setht2] = useState("none");
+  const [thongbao, setThongbao] = useState("");
+
+  const getData = async () => {
+    const res = await axios.get("https://sheetdb.io/api/v1/0rb3cvaptbdui")
+    console.log(res.data);
+    // console.log(res.data[0].Thongbao);
+    setThongbao(res.data)
+    console.log('thongbao', thongbao)
+  };
+  
+  useEffect(()=>{
+    getData()
+  },[])
+
 
   function funcht() {
     if (ht === "none") {
@@ -94,7 +112,7 @@ const Header = () => {
           <div
             className="position-relative d-flex px-4 py-1"
             role="button"
-            onClick={funcht1}
+            
           >
             {/* Search */}
             <div>
@@ -119,39 +137,38 @@ const Header = () => {
 
             {/* Bell Alarm */}
             <div>
-              <div className="bell px-2 py-1" role="button">
+              <div className="bell px-2 py-1" role="button" onClick={funcht1}>
                 <span className="fs-4">
                   <i className="fa fa-bell" aria-hidden="true"></i>
                 </span>
                 <span className="position-absolute translate-middle badge rounded-pill text-white bg-danger">
-                  3
+                  {thongbao.length}
                 </span>
               </div>
               <div
-                className="bg-secondary position-absolute translate-middle mt-2 rounded-2 "
-                style={{ display: ht1 }}
+                className="bg-secondary position-absolute translate-middle mt-2 rounded-2 mx-auto"
+                style={{width:'300px',  display: ht1 }}
               >
-                {/* <div className="z-index:200 px-3 mt-5">
-                  <a className="btn  custom-btn "> mt1</a>
-                  <div class="dropdown-divider"></div>
-                  <a className="btn  custom-btn"> Thông báo 2</a>
-                  <div class="dropdown-divider"></div>
-                  <a className="btn  custom-btn"> Thông báo 3</a>
-                  <div class="dropdown-divider"></div>
-                  <a className="btn  custom-btn"> Tất cả thông báo</a>
-                </div> */}
+               <div className="z-index:200 position-absolute ">
+                 {thongbao && thongbao.map((el)=>{
+                   return (
+                    <p className="alert alert-primary text-center" style={{width:'250px'}} > {el.Thongbao}</p>
+                   ) 
+                 })}
+
+                </div> 
               </div>
             </div>
 
-            <div className="users px-3" role="button" onClick={funcht}>
+            <div className="users px-3" role="button" >
               <div>
-                {" "}
                 <img
                   src={iconuser}
                   className="d-block"
                   alt="..."
                   width="38"
                   height="38"
+                  onClick={funcht}
                 />
               </div>
               <div
@@ -163,15 +180,15 @@ const Header = () => {
                     to={(location) => ({ ...location, pathname: "/History" })}
                     className="btn  custom-btn text-white"
                   >
-                    {" "}
+ 
                     Lịch sử
                   </Link>
                   <div class="dropdown-divider"></div>
                   <Link
-                    to={(location) => ({ ...location, pathname: "/Chamcong" })}
+                    to={(location) => ({ ...location, pathname: "/Dangnhap" })}
                     className="btn  custom-btn text-white"
                   >
-                    {" "}
+
                     Chấm công
                   </Link>
                   <div class="dropdown-divider"></div>
@@ -179,7 +196,7 @@ const Header = () => {
                     to={(location) => ({ ...location, pathname: "/Lichtruc" })}
                     className="btn  custom-btn text-white"
                   >
-                    {" "}
+         
                     Lịch trực
                   </Link>
                   <div class="dropdown-divider"></div>
@@ -187,8 +204,7 @@ const Header = () => {
                     to={(location) => ({ ...location, pathname: "/Nhansu" })}
                     className="btn  custom-btn text-white"
                   >
-                    {" "}
-                    Nhân sự
+                     Nhân sự
                   </Link>
                 </div>
               </div>

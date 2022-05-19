@@ -2,7 +2,7 @@ import React, { Component, useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { async } from "@firebase/util";
 
-const apiUrl = "https://sheetdb.io/api/v1/vpm85ghelydsv";
+const apiUrl = "https://sheetdb.io/api/v1/o8go4k5u2edh8";
 
 function callApi() {
   return Promise.resolve();
@@ -14,12 +14,17 @@ export default function Timekeeping() {
   const [danhSachNVVH, setDanhSachNVVH] = useState([]);
   const [Songuoitruc, setSonguoitruc] = useState([]);
   const [SonguoiNVVHtruc, setSonguoiNVVHtruc] = useState([]);
-
+  const date = new Date().toLocaleDateString("en-GB");
+  const time = new Date().toLocaleTimeString("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
   var DStruongca = [];
   var DSNVVH = [];
   var DSRender = [];
   var DSRender1 = [];
-
+  var DSExport = [];
+  var dataimport = [];
   useEffect(() => {
     console.log(Songuoitruc);
     try {
@@ -41,15 +46,6 @@ export default function Timekeeping() {
     });
   });
 
-  function hienthi() {
-    // console.log(danhSach);
-    console.log(Songuoitruc);
-    const sl = Songuoitruc.length + 1;
-    setSonguoitruc([...Songuoitruc, { ...sl }]);
-
-    // console.log(soluong);
-  }
-
   function Laythongtin() {
     setDanhSachTC(DStruongca);
     setDanhSachNVVH(DSNVVH);
@@ -57,13 +53,61 @@ export default function Timekeeping() {
 
   function Hienthidanhsach() {
     const matches = document.querySelectorAll(".truongca");
-    for (var i = 0; i < matches.length; i++) {
-      console.log(matches[i].value);
+    if (matches.length == 0) {
+      alert("Chưa chọn trưởng ca!");
+      return;
+    } else {
+      for (var i = 0; i < matches.length; i++) {
+        console.log(matches[i].value);
+        DSExport.push(matches[i].value);
+      }
     }
+
     const matches1 = document.querySelectorAll(".nvvh");
-    for (var j = 0; j < matches1.length; j++) {
-      console.log(matches1[j].value);
+    if (matches1.length == 0) {
+      alert("Chưa chọn nhân viên!");
+      return;
+    } else {
+      for (var j = 0; j < matches1.length; j++) {
+        console.log(matches1[j].value);
+        DSExport.push(matches1[j].value);
+      }
     }
+    console.log(DSExport);
+
+    if (DSExport != undefined) {
+      if (DSExport.length > 0) {
+        for (var k = 0; k < DSExport.length; k++) {
+          for (var m = k + 1; m < DSExport.length; m++) {
+            if (DSExport[k] == DSExport[m]) {
+              alert(`Trùng dữ liệu! ${DSExport[k]}`);
+              DSExport = [];
+              return;
+            }
+          }
+        }
+
+        for (var n = 0; n < DSExport.length; n++) {
+          dataimport.push({
+            Id: "=ROW()-1",
+            Ngay: date,
+            Gio: time,
+            Theloaitruc: "Trực chính",
+            Hotentrucchinh: DSExport[n],
+            Hotentructhe: "Không trực thế",
+          });
+        }
+        console.log("dataimport", dataimport);
+        alert(`Đã thực hiện chấm công cho các nhân sự \r\n ${dataimport}`);
+        axios({
+          method: "post",
+          url: "https://sheet.best/api/sheets/1d3de1a0-ed31-45d5-851d-36f61d0a9685",
+          data: dataimport,
+        });
+        alert("Cập nhập thành công!");
+      }
+    }
+    DSExport = [];
   }
 
   function SLTruongCaChamCong(e) {
@@ -91,12 +135,21 @@ export default function Timekeeping() {
   return (
     <div>
       <div>
-        <p className="form-label">CHẤM CÔNG NHÀ MÁY ĐIỆN GIÓ TÂN ÂN 1</p>
-        <div>
+        <h5 className="form-label mt-2 py-2 ">
+          CHẤM CÔNG NHÀ MÁY ĐIỆN GIÓ TÂN ÂN 1
+        </h5>
+        <div className="card mt-2 py-2 mx-auto" style={{ width: "50rem" }}>
+          <p> Ngày: {date}</p>
+          <p> Giờ: {time} </p>
+        </div>
+        <div className="card mt-2 py-2 mx-auto" style={{ width: "50rem" }}>
           <div className="d-flex justify-content-center ">
-            <ul>
-              Số lượng trưởng ca trực:
-              <select onChange={(e) => SLTruongCaChamCong(e)}>
+            Số lượng trưởng ca trực:
+            <ul className="px-2">
+              <select
+                onChange={(e) => SLTruongCaChamCong(e)}
+                onClick={Laythongtin}
+              >
                 {danhSachTC.map((k, index) => (
                   <option key={index}>{index}</option>
                 ))}
@@ -108,7 +161,7 @@ export default function Timekeeping() {
             Danh sách trưởng ca:
             {Songuoitruc.map((i) => {
               return (
-                <div>
+                <div className="d-flex justify-content-center">
                   <ol className="p-2">
                     <select className="truongca">
                       {danhSachTC.map((item) => (
@@ -121,11 +174,11 @@ export default function Timekeeping() {
             })}
           </ul>
         </div>
-        <div>
+        <div className="card mt-2 py-2 mx-auto" style={{ width: "50rem" }}>
           <div className="d-flex justify-content-center ">
-            <ul>
-              Số lượng NVVH tham gia trực:
-              <select onChange={(e) => SLNVVHChamCong(e)}>
+            Số lượng NVVH tham gia trực:
+            <ul className="px-2">
+              <select onChange={(e) => SLNVVHChamCong(e)} onClick={Laythongtin}>
                 {danhSachNVVH.map((k, index) => (
                   <option key={index}>{index}</option>
                 ))}
@@ -139,8 +192,14 @@ export default function Timekeeping() {
               return (
                 <div>
                   <ol className="p-2">
-                    <select className="nvvh">
-                      {danhSachNVVH.map((item) => (
+                    <select
+                      className="nvvh"
+                      id={`${i}`}
+                      onChange={(e) => {
+                        console.log(document.querySelectorAll(".nvvh"));
+                      }}
+                    >
+                      {danhSachNVVH.map((item, index) => (
                         <option key={item.id}>{item.Hoten}</option>
                       ))}
                     </select>
@@ -151,8 +210,13 @@ export default function Timekeeping() {
           </ul>
         </div>
 
-        <button onClick={Laythongtin}> Lay Thoong tin </button>
-        <button onClick={Hienthidanhsach}> Hien thi danh sach </button>
+        <button
+          className="btn btn-primary py-2 mt-2 "
+          onClick={Hienthidanhsach}
+        >
+          {" "}
+          Chấm công{" "}
+        </button>
       </div>
     </div>
   );

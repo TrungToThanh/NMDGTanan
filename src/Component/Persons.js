@@ -1,9 +1,11 @@
 
 import React, { Component, useCallback, useEffect, useState } from 'react'
 import axios from 'axios'
+import { async } from '@firebase/util';
 
-const apiUrl = 'https://sheetdb.io/api/v1/vpm85ghelydsv'
+// const apiUrl = 'https://sheetdb.io/api/v1/vpm85ghelydsv'
 
+const apiUrl = 'https://sheetdb.io/api/v1/o8go4k5u2edh8'
 function callApi() {
   return Promise.resolve();
 }
@@ -87,11 +89,33 @@ export default function Persons() {
       return nextDanhsach
     })
     // Call Api Delete
+    // axios.delete(`https://sheetdb.io/api/v1/o8go4k5u2edh8/${nhansu}`)
+
+  }
+
+  const UpdateallList = async()=>{
+    console.log(danhSach)
+
+    axios.delete('https://sheetdb.io/api/v1/o8go4k5u2edh8/all')
+    .then( response => {
+        console.log(response.data);
+    });
+
+    axios({
+      method: "post",
+      url: "https://sheetdb.io/api/v1/o8go4k5u2edh8",
+      data: danhSach,
+    });
+  
+
   }
 
   return danhSach.length === 0 ? (
     <div>Loading...</div>
   ) : (
+    <div> 
+
+  
     <table className="table">
       <thead>
         <tr>
@@ -100,7 +124,11 @@ export default function Persons() {
           <th>Năm sinh</th>
           <th>Quê quán</th>
           <th>Chức vụ</th>
-          <th></th>
+          <th> 
+            <button onClick={handleAdd} className="btn btn-primary">
+              Thêm nhân sự
+            </button>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -147,13 +175,11 @@ export default function Persons() {
           )
         })}
         <tr>
-          <td colSpan={6}>
-            <button onClick={handleAdd} className="btn btn-primary">
-              Thêm
-            </button>
-          </td>
+          
         </tr>
       </tbody>
     </table>
+    <button className='btn btn-primary' onClick={UpdateallList}> Cập nhập lại danh sách </button>
+    </div>
   )
 }

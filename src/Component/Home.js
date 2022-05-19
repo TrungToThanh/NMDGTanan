@@ -20,6 +20,7 @@ export default class Home extends Component {
                             <Switch>
                                 <Route exact path="/" component={History} />
                                 <Route exact path="/History" component={History} />
+                                <Route exact path="/Dangnhap" component ={IP}/>
                                 <Route exact path="/Chamcong" component ={Timekeeping}/>
                                 <Route exact path="/Lichtruc" component={Upload} />
                                 <Route exact path="/Nhansu" component={Persons} />

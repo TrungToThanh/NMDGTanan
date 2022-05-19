@@ -8,6 +8,8 @@ import { Icon } from "semantic-ui-react";
 import Lichtruc from "./Lichtruc";
 import "./Lichtruc.css";
 import TableFilter from "./TableFilter";
+import { useHistory } from "react-router-dom";
+import { Alert } from "bootstrap";
 
 function IP() {
   //creating IP state
@@ -34,6 +36,8 @@ function IP() {
     setlongitude(res.data.longitude);
   };
 
+  let history = useHistory();
+
   useEffect(() => {
     //passing getData method to the lifecycle method
     getData();
@@ -46,7 +50,7 @@ function IP() {
     document.getElementById("Ngayht").value = date;
     document.getElementById("Gioht").value = time;
 
-    if ((time > "09:00:00" && time < "17:00:00") || time > "19:00:00") {
+    if ((time > "10:00:00" && time < "17:00:00") || time > "19:00:00") {
       setTgchamcong("Nút đăng nhập đã bị ẩn!");
       setTgchamcong1("Không phải thời gian chấm công!");
       setTgchamcong2("none");
@@ -61,13 +65,11 @@ function IP() {
       ip.includes("115.75.182.108") ||
       ip.includes("115.74.251.70")
     ) {
-      // console.log('Đúng')
-      // console.log(hienthi)
       setCheck1("OK");
     } else {
       setCheck1("BAD");
     }
-    // if ((latitude1.toString().includes('10.8'))||(latitude1.toString().includes('16'))) {
+    
 
     if (
       latitude1.toString().includes("10.8") ||
@@ -95,10 +97,12 @@ function IP() {
   });
 
   function Add() {
+    
     var mk = document.getElementById("matkhau").value;
     var tk = document.getElementById("taikhoan").value;
     if (mk === "dgta" && tk === "dgta") {
       setCheck4("OK");
+      alert("Đã đăng nhập thành công!")
     } else {
       alert("Tài khoản và mật khẩu không đúng!");
     }
@@ -109,16 +113,9 @@ function IP() {
       check4 === "OK"
     ) {
       setHienthi("none");
-      setHienthi1("block");
+      setHienthi1("block"); 
     }
   }
-
-  const uploadImage = async (file) => {
-    const formData = new FormData();
-    formData.append("file", file);
-
-    // Connect to a seaweedfs instance
-  };
 
   function checkmk() {
     var mk = document.getElementById("matkhau").value;
@@ -187,7 +184,6 @@ function IP() {
               <p>
                 <br></br>
                 <ul>
-                  {" "}
                   <strong> Thời gian chấm công mỗi ngày: </strong>
                   <li>Ca sáng: 07h00 : 09h00</li>
                   <li>Ca tối : 17h00 : 19h00</li>
@@ -201,16 +197,13 @@ function IP() {
             <div className="col-3 col-lg-2" style={{ textAlign: "left" }}>
               <div>
                 <p>
-                  {" "}
                   <i class="fa fa-address-book" aria-hidden="true"></i> Địa chỉ
-                  IP:{" "}
+                  IP:
                 </p>
                 <p>
-                  {" "}
                   <i class="fa fa-location-arrow" aria-hidden="true"></i> Vĩ độ:{" "}
                 </p>
                 <p>
-                  {" "}
                   <i class="fa fa-globe" aria-hidden="true"></i> Kinh độ:
                 </p>
               </div>
@@ -226,8 +219,7 @@ function IP() {
               <p>{check3}</p>
             </div>
             <div style={{ display: checklocation }}>
-              {" "}
-              Bạn không có ở nhà máy!{" "}
+              Bạn không có ở nhà máy!
             </div>
             <hr />
           </div>
@@ -237,15 +229,13 @@ function IP() {
               <form className="container">
                 <div className="input-group mb-2">
                   <span className="input-group-text" id="basic-addon1">
-                    {" "}
                     <i class="fa fa-id-card" aria-hidden="true"></i> Tài khoản:
                   </span>
                   <input id="taikhoan" className="form-control" type="text" />
                 </div>
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="basic-addon1">
-                    {" "}
-                    <i class="fa fa-key" aria-hidden="true"></i> Mật khẩu:{" "}
+                    <i class="fa fa-key" aria-hidden="true"></i> Mật khẩu:
                   </span>
                   <input
                     id="matkhau"
@@ -264,13 +254,13 @@ function IP() {
               <div className="col-7 col-md-3">
                 <button
                   style={{ display: tgchamcong2 }}
-                  className="btn btn-secondary"
+                  className="btn btn-secondary m-2 px-5"
                   onMouseDown={Add}
                   onClick={Add}
                 >
-                  {" "}
-                  Truy cập chấm công{" "}
+                  Đăng nhập
                 </button>
+                
               </div>
               <div className="col-1 col-md-3"></div>
             </div>
@@ -287,7 +277,8 @@ function IP() {
         </div>
       </div>
       <div style={{ display: hienthi1 }}>
-        <App />
+      <button id='truycaptrangchamcong' className="btn btn-primary" onClick={() => history.push('/Chamcong')}> Truy cập trang chấm công </button>
+    
       </div>
     </Fragment>
   );

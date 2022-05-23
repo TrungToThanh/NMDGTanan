@@ -1,24 +1,17 @@
-import React, { Component, Fragment } from "react";
-import ReactDOM from "react-dom";
-
+import React, { Fragment } from "react";
 import { useState, useEffect } from "react";
-import axios from "axios";
-import App from "./App";
-import { Icon } from "semantic-ui-react";
-import Lichtruc from "./Lichtruc";
-import "./Lichtruc.css";
-import TableFilter from "./TableFilter";
 import { useHistory } from "react-router-dom";
-import { Alert } from "bootstrap";
+import axios from "axios";
+import Schedule from "./Schedule";
+import TableFilter from "./TableFilter";
+import "./Schedule.css";
 
 function IP() {
   //creating IP state
   const [ip, setIP] = useState("");
   const [latitude1, setlatitude] = useState("");
   const [longitude1, setlongitude] = useState("");
-  const [hienthi, setHienthi] = useState("block");
   const [hienthi1, setHienthi1] = useState("none");
-  const [hienthilichtruc, setHienthilichtruc] = useState("block");
   const [check1, setCheck1] = useState("");
   const [check2, setCheck2] = useState("");
   const [check3, setCheck3] = useState("");
@@ -51,8 +44,10 @@ function IP() {
     document.getElementById("Gioht").value = time;
 
     if ((time > "10:00:00" && time < "17:00:00") || time > "19:00:00") {
-      setTgchamcong("Nút đăng nhập đã bị ẩn!");
-      setTgchamcong1("Không phải thời gian chấm công!");
+      setTgchamcong("Không phải thời gian chấm công! Nút đăng nhập đã bị ẩn!");
+      setTgchamcong1(
+        "Chỉ Admin mới được phép truy cập trong khoảng thời gian này!"
+      );
       setTgchamcong2("none");
     } else {
       setTgchamcong("");
@@ -69,7 +64,6 @@ function IP() {
     } else {
       setCheck1("BAD");
     }
-    
 
     if (
       latitude1.toString().includes("10.8") ||
@@ -97,12 +91,11 @@ function IP() {
   });
 
   function Add() {
-    
     var mk = document.getElementById("matkhau").value;
     var tk = document.getElementById("taikhoan").value;
     if (mk === "dgta" && tk === "dgta") {
       setCheck4("OK");
-      alert("Đã đăng nhập thành công!")
+      alert("Đã đăng nhập thành công!");
     } else {
       alert("Tài khoản và mật khẩu không đúng!");
     }
@@ -112,8 +105,7 @@ function IP() {
       check3 === "OK" &&
       check4 === "OK"
     ) {
-      setHienthi("none");
-      setHienthi1("block"); 
+      setHienthi1("block");
     }
   }
 
@@ -121,27 +113,16 @@ function IP() {
     var mk = document.getElementById("matkhau").value;
     var tk = document.getElementById("taikhoan").value;
     if (mk === "thanhtrungantin" && tk === "thanhtrungantin") {
-      setHienthi("none");
       setHienthi1("block");
     }
   }
 
-  function hienthilichtrucf() {
-    console.log(hienthilichtruc);
-    if (hienthilichtruc === "none") {
-      setHienthilichtruc("block");
-    } else {
-      setHienthilichtruc("none");
-    }
-  }
   return (
     <Fragment>
       <div>
         <div>
-          <div
-            className="d-flex mx-auto justify-content-center text-center"
-          >
-            <Lichtruc />
+          <div className="d-flex mx-auto justify-content-center text-center">
+            <Schedule />
           </div>
         </div>
 
@@ -153,132 +134,119 @@ function IP() {
             <TableFilter />
           </div>
         </div>
-
-        <div class="container md-5">
-          <div className="row">
-            <hr />
-            <div className="col-2 col-md-3"></div>
-            <div className="col-9 col-md-6">
-              <div className="input-group mb-2">
-                <span className="input-group-text" id="basic-addon1">
-                  Ngày:
-                </span>
-                <input
-                  id="Ngayht"
-                  className="form-control"
-                  type="text"
-                  name="Ngayht"
-                  readOnly
-                />
-                <span className="input-group-text" id="basic-addon1">
-                  Giờ:
-                </span>
-                <input
-                  id="Gioht"
-                  className="form-control"
-                  type="text"
-                  name="Gioht"
-                  readOnly
-                />
-              </div>
-              <p>
-                <br></br>
-                <ul>
-                  <strong> Thời gian chấm công mỗi ngày: </strong>
-                  <li>Ca sáng: 07h00 : 09h00</li>
-                  <li>Ca tối : 17h00 : 19h00</li>
-                </ul>
+        <hr />
+        <div class="d-flex justify-content-center ">
+          <div className="input-group mb-2 w-50">
+            <span className="input-group-text" id="basic-addon1">
+              Ngày:
+            </span>
+            <input
+              id="Ngayht"
+              className="form-control"
+              type="text"
+              name="Ngayht"
+              readOnly
+            />
+            <span className="input-group-text" id="basic-addon1">
+              Giờ:
+            </span>
+            <input
+              id="Gioht"
+              className="form-control"
+              type="text"
+              name="Gioht"
+              readOnly
+            />
+          </div>
+        </div>
+        <hr />
+        <div class="d-flex justify-content-center ">
+          <div>
+            <ul className="mt-4">
+              <p className="text-center fw-bolder">
+                Thời gian chấm công mỗi ngày:
               </p>
-            </div>
-            <div className="col-1 col-md-3"></div>
-            <hr />
-            <div className="col-2 col-md-3"></div>
-            {/* Hien thi IP */}
-            <div className="col-3 col-lg-2" style={{ textAlign: "left" }}>
-              <div>
-                <p>
-                  <i class="fa fa-address-book" aria-hidden="true"></i> Địa chỉ
-                  IP:
-                </p>
-                <p>
-                  <i class="fa fa-location-arrow" aria-hidden="true"></i> Vĩ độ:{" "}
-                </p>
-                <p>
-                  <i class="fa fa-globe" aria-hidden="true"></i> Kinh độ:
-                </p>
-              </div>
-            </div>
-            <div className="col-3  col-lg-3">
-              <p>{ip}</p>
-              <p>{latitude1}</p>
-              <p>{longitude1}</p>
-            </div>
-            <div className="col-1 col-lg-1">
+              <p className="justify-content-between">
+                <li>Ca sáng: 07h00 -- 09h00</li>
+                <li>Ca tối:  17h00 -- 19h00</li>
+              </p>
+            </ul>
+            <p className="justify-content-center text-center fw-bolder text-danger">
+              {tgchamcong}
+            </p>
+            <p className="justify-content-center text-center fw-bolder text-danger">
+              {tgchamcong1}
+            </p>
+          </div>
+        </div>
+        <hr />
+        <div className="d-flex justify-content-center">
+          <div>
+            <div className="d-flex">
+              <p style={{ width: "200px" }}>
+                <i className="fa fa-address-book" aria-hidden="true"></i> Địa
+                chỉ IP:
+              </p>
+              <p style={{ width: "200px" }}>{ip}</p>
               <p>{check1}</p>
+            </div>
+            <div className="d-flex">
+              <p style={{ width: "200px" }}>
+                <i class="fa fa-location-arrow" aria-hidden="true"></i> Vĩ độ:
+              </p>
+              <p style={{ width: "200px" }}>{latitude1}</p>
               <p>{check2}</p>
+            </div>
+            <div className="d-flex">
+              <p style={{ width: "200px" }}>
+                <i class="fa fa-globe" aria-hidden="true"></i> Kinh độ:
+              </p>
+              <p style={{ width: "200px" }}>{longitude1}</p>
               <p>{check3}</p>
             </div>
-            <div style={{ display: checklocation }}>
+            <div className="text-center" style={{ display: checklocation }}>
               Bạn không có ở nhà máy!
-            </div>
-            <hr />
-          </div>
-          <div className="row">
-            <div className="col-2 col-md-4"></div>
-            <div className="col-9 col-md-4">
-              <form className="container">
-                <div className="input-group mb-2">
-                  <span className="input-group-text" id="basic-addon1">
-                    <i class="fa fa-id-card" aria-hidden="true"></i> Tài khoản:
-                  </span>
-                  <input id="taikhoan" className="form-control" type="text" />
-                </div>
-                <div className="input-group mb-3">
-                  <span className="input-group-text" id="basic-addon1">
-                    <i class="fa fa-key" aria-hidden="true"></i> Mật khẩu:
-                  </span>
-                  <input
-                    id="matkhau"
-                    className="form-control"
-                    type="password"
-                    onMouseEnter={checkmk}
-                  />
-                </div>
-                <div className="input-group mb-3"></div>
-              </form>
-            </div>
-            <div className="col-1 col-md-3"></div>
-            <hr />
-            <div className="row">
-              <div className="col-4 col-md-5"></div>
-              <div className="col-7 col-md-3">
-                <button
-                  style={{ display: tgchamcong2 }}
-                  className="btn btn-secondary m-2 px-5"
-                  onMouseDown={Add}
-                  onClick={Add}
-                >
-                  Đăng nhập
-                </button>
-                
-              </div>
-              <div className="col-1 col-md-3"></div>
-            </div>
-            <div className="row">
-              <div className="col-3 col-md-4"></div>
-              <div className="col-8 col-md-5">
-                {tgchamcong}
-                <br></br>
-                {tgchamcong1}
-              </div>
-              <div className="col-1 col-md-2"></div>
             </div>
           </div>
         </div>
-      </div>
-      <div style={{ display: hienthi1 }}>
-      <button id='truycaptrangchamcong' className="btn btn-primary" onClick={() => history.push('/Chamcong')}> Truy cập trang chấm công </button>
-    
+        <hr />
+        <div class="d-flex justify-content-center">
+          <div>
+            <div className="input-group mb-2">
+              <span className="input-group-text" id="basic-addon1">
+                <i class="fa fa-id-card" aria-hidden="true"></i> Tài khoản:
+              </span>
+              <input id="taikhoan" className="form-control" type="text" />
+              <span className="input-group-text" id="basic-addon1">
+                <i class="fa fa-key" aria-hidden="true"></i> Mật khẩu:
+              </span>
+              <input
+                id="matkhau"
+                className="form-control"
+                type="password"
+                onMouseEnter={checkmk}
+              />
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center">
+          <button
+            style={{ display: tgchamcong2 }}
+            className="btn btn-secondary m-2 px-5"
+            onMouseDown={Add}
+            onClick={Add}
+          >
+            Đăng nhập
+          </button>
+
+          <button
+            style={{ display: hienthi1 }}
+            className="btn btn-primary m-2 px-4"
+            onClick={() => history.push("/Chamcong")}
+          >
+            Admin đăng nhập
+          </button>
+        </div>
       </div>
     </Fragment>
   );

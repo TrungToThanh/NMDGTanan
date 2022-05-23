@@ -1,6 +1,5 @@
 import React from "react";
 import "./History.css";
-
 import pic1 from "../Pic/Phuxuan.jpg";
 import pic2 from "../Pic/Hatec.jpg";
 import pic3 from "../Pic/Vestas.jpg";
@@ -9,10 +8,12 @@ import pic5 from "../Pic/Vinhthanh.png";
 
 const History = () => {
   return (
-    <div className="flex justify-content-center">
-        <p className="text-lg fs-5 mt-2 badge bg-primary text-wrap ">
+    <div className="justify-content-center">
+      <div className="d-flex justify-content-center">
+        <p className="text-lg fs-5 mt-2 badge bg-primary text-wrap">
           Tóm tắt dự án:
         </p>
+      </div>
       <div className="d-flex justify-content-center">
         <ul class="timeline">
           <li class="timeline-item mb-5 flex">
@@ -24,8 +25,7 @@ const History = () => {
               Tân Ân, huyện Ngọc Hiển, Cà Mau
             </p>
             <a href="https://baodautu.vn/ca-mau-khoi-cong-xay-dung-nha-may-dien-gio-tan-an-1---giai-doan-1-d134775.html">
-              {" "}
-              Read more{" "}
+              Read more
             </a>
           </li>
 
@@ -56,74 +56,62 @@ const History = () => {
         </ul>
       </div>
       <div>
-        <p className="text-lg fs-5 badge bg-primary text-wrap ">
-          Các đơn vị tham gia vào dự án:
-        </p>
-
-        <div className="d-flex justify-content-between ">
-          <div className="justify-content-center">
-            <div className="px-5">
-              <img
-                src={pic1}
-                className="d-block rounded"
-                alt="..."
-                width="100"
-                height="100"
-              />
-            </div>
-            <div> Tổng thầu Phú Xuân </div>
+        <div className="d-flex justify-content-center">
+          <p className="text-lg fs-5 mt-2 badge bg-primary text-wrap">
+            Các đơn vị tham gia vào dự án:
+          </p>
+        </div>
+        <div className="d-flex justify-content-between">
+          <div>
+            <img
+              src={pic1}
+              className="d-block rounded justify-content-center mx-auto"
+              alt="Tổng Thầu Phú Xuân"
+              placeholder="Tổng Thầu Phú Xuân"
+              width="100"
+              height="100"
+            />
+            <p> Tổng thầu Phú Xuân </p>
           </div>
           <div>
-            <div className="px-5">
-              <img
-                src={pic2}
-                className="d-block rounded"
-                alt="..."
-                width="100"
-                height="100"
-              />
-            </div>
+            <img
+              src={pic2}
+              className="d-block rounded justify-content-center mx-auto"
+              alt="..."
+              width="100"
+              height="100"
+            />
             <p> Nhà thầu TBA và ĐZ HATEC </p>
           </div>
-          <div className="">
-            <div className="px-5">
-              <img
-                src={pic3}
-                className="d-block rounded"
-                alt="..."
-                width="100"
-                height="100"
-              />
-            </div>
-
+          <div>
+            <img
+              src={pic3}
+              className="d-block rounded justify-content-center mx-auto"
+              alt="..."
+              width="100"
+              height="100"
+            />
             <p> Nhà thầu Turbine Vestas </p>
           </div>
-          <div className="">
-            <div className="px-5">
-              <img
-                src={pic4}
-                className="d-block rounded"
-                alt="..."
-                width="100"
-                height="100"
-              />
-            </div>
-            <p> Thí nghiệm TBA và ĐZ</p>
-            <p> VENGY</p>
+          <div>
+            <img
+              src={pic4}
+              className="d-block rounded justify-content-center mx-auto"
+              alt="..."
+              width="100"
+              height="100"
+            />
+            <p> Thí nghiệm TBA và ĐZ VENGY</p>
           </div>
-          <div className="">
-            <div className="px-5">
-              <img
-                src={pic5}
-                className="d-block rounded"
-                alt="..."
-                width="100"
-                height="100"
-              />
-            </div>
-
-            <p>Thí nghiệm Turbine </p>
-            <p> Vĩnh Thanh</p>
+          <div>
+            <img
+              src={pic5}
+              className="d-block rounded justify-content-center mx-auto"
+              alt="..."
+              width="100"
+              height="100"
+            />
+            <p>Thí nghiệm Turbine Vĩnh Thanh </p>
           </div>
         </div>
       </div>

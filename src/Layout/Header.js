@@ -6,9 +6,6 @@ import "./header.css";
 var iconbrand = require("../Pic/wind-turbine.png");
 var iconuser = require("../Pic/Users.png");
 
-
-
-
 const Header = () => {
   const [ht, setht] = useState("none");
   const [ht1, setht1] = useState("none");

@@ -2,23 +2,13 @@ import React, { useState } from "react";
 import "ka-table/style.css";
 import { kaReducer, Table } from "ka-table";
 import { loadData, updateData } from "ka-table/actionCreators";
-import {
-  ActionType,
-  DataType,
-  SortingMode,
-} from "ka-table/enums";
-import "./Lichtruc.css";
+import { ActionType, DataType, SortingMode } from "ka-table/enums";
+import "./Schedule.css";
 
 const tablePropsInit = {
   columns: [
-    // { key: "Id", title: "STT", dataType: DataType.String, width: 160 },
     { key: "Ngay", title: "Ngày ", dataType: DataType.String },
     { key: "Gio", title: "Giờ ", dataType: DataType.String },
-    // {
-    //   key: "Theloaitruc",
-    //   title: "Theloaitruc",
-    //   dataType: DataType.String,
-    // },
     {
       key: "Hotentrucchinh",
       title: "Họ và tên",
@@ -26,19 +16,6 @@ const tablePropsInit = {
       colGroup: { style: { minWidth: 50 } },
       width: 360,
     },
-    // { key: "Catruc3", title: "Ca trực", dataType: DataType.String },
-    // {
-    //   key: "Hotentructhe",
-    //   title: "Hotentructhe",
-    //   dataType: DataType.String,
-    // },
-    // { key: "Email", title: "Email", dataType: DataType.String },
-    // { key: "IP", title: "IP", dataType: DataType.String },
-    // { key: "Photo", title: "Photo", dataType: DataType.String },
-    // { key: "Toado", title: "Toado", dataType: DataType.String },
-    // { key: "Ngayloc", title: "Ngayloc", dataType: DataType.String },
-    // { key: "Catruc1", title: "Catruc1", dataType: DataType.String },
-    // { key: "Catruc2", title: "Catruc2", dataType: DataType.String },
   ],
   singleAction: loadData(),
   sortingMode: SortingMode.None,
@@ -47,7 +24,6 @@ const tablePropsInit = {
 
 const TableFilter = () => {
   const [tableProps, changeTableProps] = useState(tablePropsInit);
-
   const [ht, setht] = useState("none");
   function hienthi() {
     if (ht === "none") {
@@ -90,17 +66,16 @@ const TableFilter = () => {
     <div>
       <center>
         <div className="lichtruc d-flex justify-content-center mt-2 ">
-          <h5 > Danh sách chấm công gần đây:</h5>
+          <h5> Danh sách chấm công gần đây:</h5>
           <button onClick={hienthi} className="btn btn-light btn-sm">
             <i class="fa fa-arrow-down" aria-hidden="true"></i>{" "}
             <i class="fa fa-arrow-up" aria-hidden="true"></i>{" "}
           </button>
         </div>
         <div style={{ width: "100%" }}>
-            <div style={{ display: ht, width: "100%" }}>
+          <div style={{ display: ht, width: "100%" }}>
             <Table {...tableProps} dispatch={dispatch} />
-            </div>
-         
+          </div>
         </div>
       </center>
     </div>

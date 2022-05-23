@@ -11,18 +11,13 @@ import {
 } from "ka-table/enums";
 import { kaPropsUtils } from "ka-table/utils";
 
-import { CSVLink } from 'react-csv';
+import { CSVLink } from "react-csv";
 
 const tablePropsInit = {
   columns: [
     { key: "Id", title: "STT", dataType: DataType.String, width: 160 },
     { key: "Ngay", title: "Ngày ", dataType: DataType.String },
     { key: "Gio", title: "Giờ ", dataType: DataType.String },
-    // {
-    //   key: "Theloaitruc",
-    //   title: "Theloaitruc",
-    //   dataType: DataType.String,
-    // },
     {
       key: "Hotentrucchinh",
       title: "Họ và tên",
@@ -31,18 +26,6 @@ const tablePropsInit = {
       width: 360,
     },
     { key: "Catruc3", title: "Ca trực", dataType: DataType.String },
-    // {
-    //   key: "Hotentructhe",
-    //   title: "Hotentructhe",
-    //   dataType: DataType.String,
-    // },
-    // { key: "Email", title: "Email", dataType: DataType.String },
-    // { key: "IP", title: "IP", dataType: DataType.String },
-    // { key: "Photo", title: "Photo", dataType: DataType.String },
-    // { key: "Toado", title: "Toado", dataType: DataType.String },
-    // { key: "Ngayloc", title: "Ngayloc", dataType: DataType.String },
-    // { key: "Catruc1", title: "Catruc1", dataType: DataType.String },
-    // { key: "Catruc2", title: "Catruc2", dataType: DataType.String },
   ],
   singleAction: loadData(),
   paging: {
@@ -85,9 +68,9 @@ const OverviewDemo = () => {
 
   return (
     <div>
-      <h5 className="mt-2"> DANH SÁCH NHÂN SỰ CHẤM CÔNG</h5>
-
+      <h5 className="mt-2 text-center"> DANH SÁCH NHÂN SỰ CHẤM CÔNG</h5>
       <div
+        className="text-center"
         style={{
           marginBottom: 20,
           marginLeft: 20,

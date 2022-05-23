@@ -1,15 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import { initializeApp } from "firebase/app";
-import {
-  getStorage,
-  ref,
-  listAll,
-  getDownloadURL,
-} from "firebase/storage";
-import "./Lichtruc.css";
+import { getStorage, ref, listAll, getDownloadURL } from "firebase/storage";
+import "./Schedule.css";
 
-function Lichtruc() {
+function Schedule() {
   // Your web app's Firebase configuration
   const firebaseConfig = {
     apiKey: "AIzaSyDOmrwAblfm7odBFMUZ5gTy36-doszysqk",
@@ -62,7 +57,7 @@ function Lichtruc() {
   return (
     <div>
       <center>
-        <div className="lichtruc d-flex justify-content-center mt-2">
+        <div className="Schedule d-flex justify-content-center mt-2">
           <h5>Lịch trực nhà máy điện gió Tân Ân 1</h5>
           <button onClick={getImage} className="btn btn-light btn-sm">
             <i class="fa fa-arrow-down" aria-hidden="true"></i>{" "}
@@ -83,4 +78,4 @@ function Lichtruc() {
   );
 }
 
-export default Lichtruc;
+export default Schedule;

@@ -110,7 +110,6 @@ function Upload() {
           width="100%"
           height="450"
         />
-        {/* <button onClick={getImage}> click </button> */}
         <div className="d-inline-flex gap-2 mt-2 ">
           <div className="card p-5">
             <h5>Hướng dẫn tải lịch trực mới lên hệ thống:</h5>
@@ -123,7 +122,6 @@ function Upload() {
               <p> 4. Hộp thoại thông báo xuất hiện để thông báo kết quả!</p>
             </div>
           </div>
-
           <div className="card p-5 text-center gap-2">
             <h5> Đường dẫn file lịch trực: </h5>
             <div>

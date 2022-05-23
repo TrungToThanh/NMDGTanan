@@ -1,12 +1,7 @@
-import React, { Component, useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { async } from "@firebase/util";
 
 const apiUrl = "https://sheetdb.io/api/v1/o8go4k5u2edh8";
-
-function callApi() {
-  return Promise.resolve();
-}
 
 export default function Timekeeping() {
   const [danhSach, setDanhSach] = useState([]);
@@ -25,8 +20,8 @@ export default function Timekeeping() {
   var DSRender1 = [];
   var DSExport = [];
   var dataimport = [];
+
   useEffect(() => {
-    console.log(Songuoitruc);
     try {
       axios.get(apiUrl).then((response) => {
         setDanhSach(response.data);
@@ -38,11 +33,11 @@ export default function Timekeeping() {
 
   useEffect(() => {
     DStruongca = danhSach.filter(function (truongca) {
-      return truongca.Chucvu == "Trưởng Ca";
+      return truongca.Chucvu === "Trưởng Ca";
     });
 
     DSNVVH = danhSach.filter(function (nvvh) {
-      return nvvh.Chucvu == "NVVH";
+      return nvvh.Chucvu === "NVVH";
     });
   });
 
@@ -53,7 +48,7 @@ export default function Timekeeping() {
 
   function Hienthidanhsach() {
     const matches = document.querySelectorAll(".truongca");
-    if (matches.length == 0) {
+    if (matches.length === 0) {
       alert("Chưa chọn trưởng ca!");
       return;
     } else {
@@ -64,7 +59,7 @@ export default function Timekeeping() {
     }
 
     const matches1 = document.querySelectorAll(".nvvh");
-    if (matches1.length == 0) {
+    if (matches1.length === 0) {
       alert("Chưa chọn nhân viên!");
       return;
     } else {
@@ -73,13 +68,12 @@ export default function Timekeeping() {
         DSExport.push(matches1[j].value);
       }
     }
-    console.log(DSExport);
 
-    if (DSExport != undefined) {
+    if (DSExport !== undefined) {
       if (DSExport.length > 0) {
         for (var k = 0; k < DSExport.length; k++) {
           for (var m = k + 1; m < DSExport.length; m++) {
-            if (DSExport[k] == DSExport[m]) {
+            if (DSExport[k] === DSExport[m]) {
               alert(`Trùng dữ liệu! ${DSExport[k]}`);
               DSExport = [];
               return;
@@ -97,8 +91,6 @@ export default function Timekeeping() {
             Hotentructhe: "Không trực thế",
           });
         }
-        console.log("dataimport", dataimport);
-        alert(`Đã thực hiện chấm công cho các nhân sự \r\n ${dataimport}`);
         axios({
           method: "post",
           url: "https://sheet.best/api/sheets/1d3de1a0-ed31-45d5-851d-36f61d0a9685",
@@ -135,17 +127,22 @@ export default function Timekeeping() {
   return (
     <div>
       <div>
-        <h5 className="form-label mt-2 py-2 ">
-          CHẤM CÔNG NHÀ MÁY ĐIỆN GIÓ TÂN ÂN 1
-        </h5>
-        <div className="card mt-2 py-2 mx-auto" style={{ width: "50rem" }}>
-          <p> Ngày: {date}</p>
-          <p> Giờ: {time} </p>
+        <div className="d-flex justify-content-center">
+          <h5 className="form-label mt-2 py-2 ">
+            CHẤM CÔNG NHÀ MÁY ĐIỆN GIÓ TÂN ÂN 1
+          </h5>
+        </div>
+
+        <div className="mx-auto" style={{ width: "50rem" }}>
+          <div className="d-flex justify-content-center">
+            <p className="input-group-text w-25 text-center">Ngày: {date}</p>
+            <p className="input-group-text w-25 text-center">Giờ: {time} </p>
+          </div>
         </div>
         <div className="card mt-2 py-2 mx-auto" style={{ width: "50rem" }}>
           <div className="d-flex justify-content-center ">
-            Số lượng trưởng ca trực:
-            <ul className="px-2">
+            <p className="text-center fw-bold">Số lượng trưởng ca trực:</p>
+            <ul className="text-center">
               <select
                 onChange={(e) => SLTruongCaChamCong(e)}
                 onClick={Laythongtin}
@@ -157,8 +154,8 @@ export default function Timekeeping() {
             </ul>
           </div>
 
-          <ul>
-            Danh sách trưởng ca:
+          <ul className="text-center">
+            <p className="text-danger fw-bolder"> Danh sách trưởng ca: </p>
             {Songuoitruc.map((i) => {
               return (
                 <div className="d-flex justify-content-center">
@@ -175,8 +172,8 @@ export default function Timekeeping() {
           </ul>
         </div>
         <div className="card mt-2 py-2 mx-auto" style={{ width: "50rem" }}>
-          <div className="d-flex justify-content-center ">
-            Số lượng NVVH tham gia trực:
+          <div className="d-flex justify-content-center">
+            <p className="text-center fw-bold">Số lượng NVVH tham gia trực:</p>
             <ul className="px-2">
               <select onChange={(e) => SLNVVHChamCong(e)} onClick={Laythongtin}>
                 {danhSachNVVH.map((k, index) => (
@@ -186,8 +183,10 @@ export default function Timekeeping() {
             </ul>
           </div>
 
-          <ul>
-            Danh sách nhân viên vận hành:
+          <ul className="text-center">
+            <p className="text-danger fw-bolder">
+              Danh sách nhân viên vận hành:
+            </p>
             {SonguoiNVVHtruc.map((i) => {
               return (
                 <div>
@@ -209,14 +208,14 @@ export default function Timekeeping() {
             })}
           </ul>
         </div>
-
-        <button
-          className="btn btn-primary py-2 mt-2 "
-          onClick={Hienthidanhsach}
-        >
-          {" "}
-          Chấm công{" "}
-        </button>
+        <div className="d-flex justify-content-center">
+          <button
+            className="btn btn-primary py-2 mt-2 "
+            onClick={Hienthidanhsach}
+          >
+            Chấm công
+          </button>
+        </div>
       </div>
     </div>
   );

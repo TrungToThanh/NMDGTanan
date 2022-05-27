@@ -9,9 +9,6 @@ import {
   FilteringMode,
   PagingPosition,
 } from "ka-table/enums";
-import { kaPropsUtils } from "ka-table/utils";
-
-import { CSVLink } from "react-csv";
 
 const tablePropsInit = {
   columns: [
@@ -52,7 +49,7 @@ const OverviewDemo = () => {
 
       // loc lay lich truc gan nhat:
 
-      const datamini = data.filter(filterByID);
+      let datamini = data.filter(filterByID);
 
       function filterByID(item) {
         if (item.Hotentrucchinh !== "Không có người trực") {
@@ -76,16 +73,7 @@ const OverviewDemo = () => {
           marginLeft: 20,
         }}
       >
-        <CSVLink
-          data={kaPropsUtils.getData(tableProps)}
-          headers={tableProps.columns.map((c) => ({
-            label: c.title,
-            key: c.key,
-          }))}
-          filename="Lichtruc.csv"
-        >
-          Tải lịch trực!
-        </CSVLink>
+       
       </div>
       <Table
         {...tableProps}

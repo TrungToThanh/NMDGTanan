@@ -96,13 +96,13 @@ export default function Persons() {
   const UpdateallList = async () => {
     console.log(danhSach);
 
-    axios
+    await axios
       .delete("https://sheetdb.io/api/v1/o8go4k5u2edh8/all")
       .then((response) => {
         console.log(response.data);
       });
 
-    axios({
+    await axios({
       method: "post",
       url: "https://sheetdb.io/api/v1/o8go4k5u2edh8",
       data: danhSach,
